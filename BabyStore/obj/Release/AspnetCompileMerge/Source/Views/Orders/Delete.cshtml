@@ -1,0 +1,64 @@
+﻿@model BabyStore.Models.Order
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Deletes;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@SiteResource.wantToDelete</h3>
+<div>
+    <h4>@SiteResource.Orders</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOrder)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@SiteResource.Deletes" class="btn btn-default" /> |
+            @Html.ActionLink(SiteResource.BackList, "Index")
+        </div>
+    }
+</div>

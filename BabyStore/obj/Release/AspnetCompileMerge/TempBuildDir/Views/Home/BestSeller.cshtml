@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BabyStore.ViewModels.BasetSellesrViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-9 col-xs-6">
+
+
+            <h1 class="text-primary">المنتجات الاكثر مبيعا </h1>
+
+            <div class="row">
+
+
+                @foreach (var item in Model)
+            {
+                    <div class="card mb-3 col-md-4 col-xs-12 " style="border-bottom-left-radius:5px 5px 5px 5px;">
+                        <div class='card-body'>
+
+
+
+
+
+                            <a href="@Url.Action("Details","Products", new{id= item.Product.ID})">
+                                <img src="~/Images/@item.Product.productImg"
+                                     class="cart-img-top"  style="width:200px; height:188px; border-image-slice:fill;" />
+
+                            </a>
+                        </div>
+
+
+
+
+                        <h4 class="cart-title"> @item.Product.SubCategory.SubCategoryName</h4>
+                        <p class="cart-text"> @item.Product.Price </p>
+
+
+                    </div>
+
+
+                }
+
+            </div>
+
+                </div>
+
+            </div>
+    </div>

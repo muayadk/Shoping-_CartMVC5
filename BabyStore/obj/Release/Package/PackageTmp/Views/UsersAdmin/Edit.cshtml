@@ -1,0 +1,76 @@
+﻿@model BabyStore.ViewModels.EditUserViewModel
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Edit;
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section Scripts{
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#DateOfBirth').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //changeRange:
+                mindate: new Date(2018, 0, 1),
+                maxDate: new Date(2025, 0, 1),
+                showOn: "both",
+                buttonText: " <i class='fa fa-calender'> </i>"
+            });
+        });
+
+
+    </script>
+}
+
+@using (Html.BeginForm())
+
+
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-horizontal">
+        @Html.Partial("_EditUserPartial",Model)
+        <div class="form-group">
+         @Html.Label(SiteResource.Role, new { @class = "control-label col-md-2" })
+        
+            <span class=" col-md-10">
+                @foreach (var item in Model.RolesList)
+                {
+                    <input type="checkbox" name="SelectedRole" value="@item.Value"
+                           checked="@item.Selected" class="checkbox-inline" />
+                    @Html.Label(item.Value, new { @class = "control-label" })
+                }
+            </span>
+        </div>
+
+        <div class="form-group">
+          @Html.Label(SiteResource.StatusUser, htmlAttributes: new { @class = "control-label col-md-2" })
+            
+            <div class="col-md-10">
+
+                
+                @Html.CheckBoxFor(model => model.StatusUser, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StatusUser, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@SiteResource.Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink(SiteResource.BackList, "Index", new {@class="btn btn-primary" })
+</div>
+

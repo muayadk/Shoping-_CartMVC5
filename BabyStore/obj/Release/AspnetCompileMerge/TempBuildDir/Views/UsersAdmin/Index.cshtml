@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BabyStore.Models.ApplicationUser>
+ @using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Users;
+}
+<h2>@ViewBag.Title</h2>
+<p>
+   @if(Request.IsAuthenticated && User.IsInRole("Admin"))
+   { 
+        @Html.ActionLink(SiteResource.Create, "Create", null,new { @class = "btn btn-primary" })
+   }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <!--@@Html.DisplayNameFor(model => model.UserName)-->
+            @SiteResource.UserName
+        </th>
+       <th><!--@@Html.DisplayNameFor(model=> model.StatusUser)-->
+        @SiteResource.StatusUser 
+        </th>
+
+        <th>
+        <!--@@Html.DisplayNameFor(model=> model.DateCreateUser)-->
+        @SiteResource.DateCreateUser 
+        </th>
+        <th> <!--@@Html.DisplayNameFor(model=>model.DateEditUser)-->
+        @SiteResource.DateEditUser 
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td><!-- @@Html.DisplayFor(modelItem =>item.StatusUser)-->
+            @if(item.StatusUser==true)
+            {
+                <p>@SiteResource.Active</p>
+            }
+            else
+            {
+                <p>@SiteResource.Passive</p>
+            }
+            </td>
+    
+            <td> @Html.DisplayFor(modelItem=> item.DateCreateUser)</td>
+            <td> @Html.DisplayFor(modelItem => item.DateEditUser)</td>
+            <td>
+                @if(Request.IsAuthenticated&&User.IsInRole("Admin"))
+                { 
+                @Html.ActionLink(SiteResource.Edit, "Edit", new { id = item.Id }, new {@class="btn btn-primary" })}
+                                                                                                                   |
+               @Html.ActionLink(SiteResource.detiles, "Details", new { id = item.Id }, new {@class="btn btn-primary" }) 
+                <!--@@Html.ActionLink(SiteResource.Deletes, "Delete", new { id = item.Id }, new {@@class="btn btn-primary" })--> 
+               
+            </td>
+        </tr>
+    }
+</table>
+

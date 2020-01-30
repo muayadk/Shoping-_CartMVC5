@@ -1,0 +1,77 @@
+﻿@model BabyStore.Models.RegisterViewModel
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Register;
+}
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section Scripts{
+  @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#DateOfBirth').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //changeRange:
+               // mindate: new Date(2018, 0, 1),
+                //maxDate: new Date(2025, 0, 1),
+               showOn: "both",
+                buttonText: " <i class='fa fa-calender'> </i>"
+            });
+        });
+
+       /*$(document).ready(function () {
+            $('#DateCreateUser').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //changeRange:
+                mindate: new Date(2018, 0, 1),
+                maxDate: new Date(2025, 0, 1),
+                showOn: "both",
+                buttonText: " <i class='fa fa-calender'> </i>"
+            });
+        });*/
+
+       /* $("input[type=checkbox]").change(function () {
+            if ($(this).prop("checked")) {
+                $(this).val(true);
+            }
+            else {
+                $(this).val(false);
+            }
+
+
+        });*/
+
+  
+    </script>
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+    @Html.Partial("_CreateRegisterUserPartial", Model);
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@SiteResource.Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(SiteResource.BackList, "Index")
+</div>
+
+

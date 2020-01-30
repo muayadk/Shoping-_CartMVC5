@@ -1,0 +1,21 @@
+﻿@using BabyStore.Views.Shared
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Admin;
+}
+
+<h2>@ViewBag.Title</h2>
+ <div class="container">
+     <br />
+    <div class="row">
+        <ul class="list-group-item-text">
+            <li class="list-group-item"> @Html.ActionLink(SiteResource.RoleManage, "Index", "RolesAdmin")</li>
+
+
+            <li class="list-group-item"> @Html.ActionLink(SiteResource.UserManage, "Index", "UsersAdmin")</li>
+
+
+            <li class="list-group-item">@Html.ActionLink(SiteResource.ViewOrders, "Index", "Orders")</li>
+        </ul>
+    </div>
+</div>

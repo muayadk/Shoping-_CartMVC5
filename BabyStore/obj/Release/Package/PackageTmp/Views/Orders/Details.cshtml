@@ -1,0 +1,103 @@
+﻿@model BabyStore.Models.Order
+
+@using BabyStore.Views.Shared
+
+@{
+    ViewBag.Title = SiteResource.detiles;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+
+    <hr />
+    <div class="row" style="background-color :rgb(249, 249, 249);">
+        <div class="col-md-8">
+            <h4>@SiteResource.Category</h4>
+        </div>
+        <div class="col-md-2">
+            <h4> @SiteResource.Quantity </h4>
+        </div>
+
+        <div class="col-md-2">
+            <h4>@SiteResource.UnitPrice</h4>
+        </div>
+    </div>
+    @foreach(var item in Model.OrderDetielss)
+    {
+      
+        <div class="row">
+            <div class="col-md-8">@Html.DisplayFor(pname=> item.ProductName) </div>
+            <div class="col-md-2">@Html.DisplayFor(Q=> item.Quantity)</div>
+            <div class="col-md-2"> @Html.DisplayFor(p =>item.UnitPrice)</div>
+        </div>  
+     }
+
+    <hr />
+    <div>
+        <table class="table table-bordered" style="border-collapse :collapse;">
+            <thead class="popover-title">
+                <tr>
+                
+
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserID)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeliveryName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeliveryAddress)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalPrice)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOrder)
+                    </th>
+
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => model.OrderID)
+                    </th>
+
+                    <th>
+                        @Html.DisplayFor(model => model.UserID)
+                    </th>
+
+                    <th>
+                        @Html.DisplayFor(model => model.DeliveryName)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayFor(model => model.DeliveryAddress)
+                    </th>
+
+                    <th>
+                        @Html.DisplayFor(model => model.TotalPrice)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayFor(model => model.DateOrder)
+                    </th>
+                </tr>
+            </tbody>
+    </table>
+</div>
+</div>
+<p>
+   <!--@@Html.ActionLink("Edit", "Edit", new { id = Model.OrderID }) |-->
+    @Html.ActionLink(SiteResource.BackList, "Index")
+</p>

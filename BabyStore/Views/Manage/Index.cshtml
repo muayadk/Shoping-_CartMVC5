@@ -1,0 +1,22 @@
+﻿@model BabyStore.Models.ApplicationUser
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.detiles;
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.Partial("_UserDetailsPartial", Model)
+        <dt>
+            @SiteResource.Password
+        </dt>
+        <dd>
+            @Html.ActionLink(SiteResource.ChangePassword, "ChangePassword")
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(SiteResource.Edit, "Edit", new { id = Model.Id }, new {@class="btn btn-primary" })
+</p>
+<h2> @Html.ActionLink(SiteResource.ViewOrders, "Index", "Orders", new {@class="btn btn-primary" })</h2>

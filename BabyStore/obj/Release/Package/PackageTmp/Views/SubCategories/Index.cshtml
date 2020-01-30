@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BabyStore.Models.SubCategory>
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink(SiteResource.Create, "Create")
+</p>
+
+
+
+<div class="nav nav-tabs col-xs-12" >
+@foreach (var item in Model.Select(category => category.Category).Distinct())
+{
+
+    if (SiteResource.Language == "عربي")
+    {
+        <div class="dropdown">
+            <button class="dropdown-toggle" data-toggle="dropdown" style="width:40%;"> @Html.DisplayFor(modelItem => item.Name)</button>
+
+            <div class=" dropdown-menu" style="width:80%; left:0">
+                <table class="table">
+                    @foreach (var sub in Model.Where(s => item.ID == s.CategoryID))
+                    {
+
+
+                        <tr>
+                            <th>@Html.DisplayFor(modelItem => sub.SubCategoryName)</th>
+
+                            <td>@Html.ActionLink(SiteResource.Edit, "Edit", new { id = sub.SubCategoryID }, new { @class = "btn btn-primary btn-xs", @style = "float:center;" })</td>
+
+                            <td>
+                                @Html.ActionLink(SiteResource.detiles, "Details", new { id = sub.SubCategoryID }, new { @class = "btn btn-primary btn-xs", @style = "float:center;" })
+                            </td>
+                            <td>
+                                @Html.ActionLink(SiteResource.Deletes, "Delete", new { id = sub.SubCategoryID }, new { @class = "btn btn-danger btn-xs", @style = "float:center;" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+
+            </div>
+            </div>
+    }
+    else
+    {
+        <div class="dropdown">
+            <button class="dropdown-toggle" data-toggle="dropdown" style="width:40%;" > @Html.DisplayFor(modelItem => item.Name)</button>
+
+            <div class=" dropdown-menu" style="width:80%; left:0">
+                <table class="table">
+                    @foreach (var sub in Model.Where(s => item.ID == s.CategoryID))
+                    {
+
+
+                        <tr>
+                            <th>@Html.DisplayFor(modelItem => sub.SubCategoryName)</th>
+
+                            <td>@Html.ActionLink(SiteResource.Edit, "Edit", new { id = sub.SubCategoryID }, new { @class = "btn btn-primary btn-xs", @style = "float:center;" })</td>
+
+                            <td>
+                                @Html.ActionLink(SiteResource.detiles, "Details", new { id = sub.SubCategoryID }, new { @class = "btn btn-primary btn-xs", @style = "float:center;" })
+                            </td>
+                            <td>
+                                @Html.ActionLink(SiteResource.Deletes, "Delete", new { id = sub.SubCategoryID }, new { @class = "btn btn-danger btn-xs", @style = "float:center;" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+                
+            </div>
+            </div>
+            }
+            }
+        </div>

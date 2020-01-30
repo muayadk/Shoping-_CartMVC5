@@ -1,0 +1,13 @@
+﻿@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<ul class="list-group">
+   <li class="list-group-item"> @Html.ActionLink("English", "Change", "Language", new { LanguageAbbrevation = "en" },null)</li>
+
+  <li class="list-group-item">  @Html.ActionLink("العربية", "Change", "Language", new { LanguageAbbrevation = "ar" },null)</li>
+    <li class="list-group-item">@DateTime.Now.ToString()</li>
+</ul>

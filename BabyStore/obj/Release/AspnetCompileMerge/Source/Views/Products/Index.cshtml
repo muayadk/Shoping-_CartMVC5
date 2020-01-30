@@ -1,0 +1,89 @@
+﻿
+@model BabyStore.ViewModels.ProductIndexViewModel
+@using PagedList.Mvc
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.PageProduct;
+}
+
+<p style="font-family:sans-serif;font-size:large;">
+    @(String.IsNullOrWhiteSpace(Model.Search) ? @SiteResource.ShowAllProduct : "You search for " + Model.Search + " found")@Model.Products.TotalItemCount @SiteResource.Products
+</p>
+<div class="row ">
+    <div class="col col-sm-6 col-xs-6">
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            @Html.ActionLink(SiteResource.Create, "Create", "Create", new { @class = "btn btn-primary" })
+        }
+
+        @using (Html.BeginRouteForm("ProductsIndex", FormMethod.Get))
+        {
+
+            <p>
+                <label class="label label-primary">@SiteResource.FilterCategory</label>
+
+                @Html.DropDownListFor(vm => vm.Category, Model.CatFilterItems, "All")
+
+            </p>
+            <p>
+                <label class="label label-primary">@SiteResource.SortBy</label>
+                @Html.DropDownListFor(vm => vm.sortBy, new SelectList(Model.sorts, "Value", "Key"), "Default")
+                <input type="submit"  value="Filter" class="btn btn-default btn-xs" />
+
+                <input type="hidden"   name="Search" id="Search" value="@Model.Search" class="btn btn-default btn-xs " />
+            </p>
+        }
+    </div>
+    </div>
+    <div class="row  mb-4">
+        <div class="col">
+            @foreach (var item in Model.Products)
+            {
+
+                <div class="card  col-md-3 col-xs-6 " style="border-bottom-left-radius:5px 5px 5px 5px;">
+                    <div class='card-body'>
+
+                        <a href="@Url.Action("Details","Products", new{id= item.ID})">
+
+                            <img src="~/Images/@Html.DisplayFor(modelItem =>item.productImg)"  class="cart-img-top"  style="width:120px; height:180px;" />
+
+                        </a>
+
+
+
+                        <h4 class="cart-title">@Html.DisplayFor(modelItem => item.Name)</h4>
+
+
+                        <p class="cart-text">@Html.DisplayFor(modelItem => item.Price)</p>
+
+
+                        <p class="cart-text" style="text-decoration: line-through; width:100px; color: #bd6565;">@Html.DisplayFor(modelItem => item.BuyPrice)</p>
+
+                        <p class="col hidden">
+
+                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                                @Html.ActionLink(SiteResource.Edit, "Edit", new { id = item.ID }, new { @class = "btn btn-primary btn-xs" })
+                                @Html.Raw(" | ")
+                                @Html.ActionLink(SiteResource.Deletes, "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-xs" })
+
+                            }
+                            @Html.ActionLink(SiteResource.detiles, "Details", new { id = item.ID }, new { @class = "btn btn-primary btn-xs" })
+
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+            }
+        </div>
+    </div>
+
+    <div>
+
+
+        Page @(Model.Products.PageCount < Model.Products.PageNumber ? 0 : Model.Products.PageNumber) of @Model.Products.PageCount
+        @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { category = @Model.Category, Search = @Model.Search, sortBy = @Model.sortBy, page }))
+    </div>

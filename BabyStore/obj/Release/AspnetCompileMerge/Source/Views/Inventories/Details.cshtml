@@ -1,0 +1,37 @@
+﻿@model BabyStore.Models.Inventory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InventoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InventoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InventoryLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InventoryLocation)
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InventoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

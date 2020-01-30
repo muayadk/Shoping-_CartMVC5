@@ -1,0 +1,24 @@
+﻿@model BabyStore.ViewModels.EditUserViewModel
+           @using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.Edit;
+}
+<h2> @ViewBag.Title </h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.Partial("_EditUserPartial", Model)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@SiteResource.Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(SiteResource.BackList, "Index", null, new {@class="btn btn-primary" })
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")

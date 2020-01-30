@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=SQL5046.site4now.net;Initial Catalog=DB_A4D788_nanoshop;User Id=DB_A4D788_nanoshop_admin;Password=nanocompeny@123;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Apps\ Programing\ Language\\Asp\.Net\ MVC\\nanostore\\BabyStore\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>

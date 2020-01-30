@@ -1,0 +1,160 @@
+﻿@model PagedList.IPagedList<BabyStore.Models.Order>
+@using PagedList.Mvc
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title =SiteResource.Orders;
+}
+<hr />
+<h2>@ViewBag.Title</h2>
+
+  <link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#StartDate').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //changeRange:
+                minDate: new Date(2018, 0, 1),
+                maxDate: new Date(2025, 0, 1),
+               // showOn: "both",
+                buttonText: " <i class='fa fa-calender'> </i>"
+            });
+        });
+
+            $(document).ready(function ()
+            {
+                $('#EndDate').datepicker(
+                    {
+                      
+                        changeMonth: true,
+                        changeYear: true,
+                        minDate: new Date(2018, 0, 1),
+                        maxDate: new Date(2025, 0, 1),
+                        //showOn: "both",
+                        buttonText:"<i class='fa fa-calender'></i>"
+                     
+                    });
+            });
+       
+
+    </script>
+}
+
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get)) 
+   {
+    <div class="row form-group">
+         <div class="col-md-2">
+             <label>@SiteResource.SearchBy :</label>
+         </div> 
+
+        <div class="col-md-2">
+            @Html.TextBox("SearchOrder", ViewBag.FilterValue as string, new { @class = "form-control", @placeholder = SiteResource.SearchOrder })
+        </div>
+  
+        <div class="col-md-2">
+             <label>@SiteResource.searchBdate</label>
+        </div>
+
+        <div class="col-md-2"> 
+            <input type="text" id="StartDate" name="StartDate" class="form-control" value="@Request.QueryString["StartDate"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" id="EndDate" name="EndDate" class="form-control" value="@Request.QueryString["EndDate"]" />
+        </div>
+        <div class="col-md-2"> <button type="submit" class="btn btn-default">@SiteResource.Submit</button></div>
+        
+    </div>
+
+    }
+
+
+<table class="table">
+    <tr>
+        <th> 
+        
+            @SiteResource.OrderId
+        </th>
+     
+        <th>
+            @Html.ActionLink(SiteResource.User, "Index", new {orderSortOrder = ViewBag.UserSort,
+                                                               searchorder = ViewBag.CurrentOrderSearch,
+                                                               startDate = ViewBag.StartDate,
+                                                               endDate = ViewBag.EndDate,
+                                                               filter_value = ViewBag.FilterValue
+       })
+        </th>
+        <th>
+            <!--@@Html.DisplayNameFor(model => model.DeliveryName)-->
+            @SiteResource.DeliverTo
+        </th>
+        <th>
+           
+            @SiteResource.DeliveryAddress
+        </th>
+        <th>
+              @Html.ActionLink(SiteResource.TotalPrice, "Index", new { orderSortOrder = ViewBag.PriceSort,
+                                                             searchorder = ViewBag.CurrentOrderSearch,
+                                                             startDate = ViewBag.StartDate,
+                                                             endDate = ViewBag.EndDate,
+                                                              filter_value = ViewBag.FilterValue
+         })
+        </th>
+        <th>
+            @Html.ActionLink(SiteResource.TimeOrder, "Index", new { orderSortOrder= ViewBag.DateSort,
+                                                             searchorder = ViewBag.CurrentOrderSearch,
+                                                             startDate = ViewBag.StartDate,
+                                                             endDate = ViewBag.EndDate,
+                                                              filter_value = ViewBag.FilterValue
+       })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+         <th>
+             @Html.DisplayFor(modelItem =>item.OrderID )
+         </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOrder)
+        </td>
+        <td>
+          
+            @Html.ActionLink(SiteResource.detiles, "Details", new { id=item.OrderID }) 
+           
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount <Model.PageNumber ? 0 :Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+{
+    page,
+    orderSortOrder = ViewBag.DateSort,
+    searchorder = ViewBag.CurrentOrderSearch,
+    startDate = ViewBag.StartDate,
+    endDate = ViewBag.EndDate,
+    filter_value = ViewBag.FilterValue
+}))

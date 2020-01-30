@@ -1,0 +1,213 @@
+﻿@using BabyStore.Views.Shared
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/Style.css" rel="stylesheet" />
+    @if (SiteResource.Language == "عربي")
+    {
+        <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />
+    }
+</head>
+<body >
+    <nav class="navbar navbar-default navbar-static-top">
+       
+
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+               <img src="~/Content/img/dxn.png" width="100" height="100" class = "navbar-brand" />
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">@Html.ActionLink(SiteResource.Home, "Index", "Home")</li>
+                    <li class="active">@Html.ActionLink("من نحن", "aboutus", "Home")</li>
+                    <!--<li>@@Html.ActionLink(SiteResource.CategorySho, "Index", "Categories")</li>-->
+                    <li>@Html.RouteLink(SiteResource.ProductV, "ProductsIndex")</li>
+                 
+                        <li>@if(Request.IsAuthenticated&&User.IsInRole("Admin")){
+                                 @Html.ActionLink(SiteResource.Admin, "Index", "Admin")
+                        }</li>
+                   
+                 
+                
+
+                    <li>
+                        @using (Html.BeginRouteForm("ProductsIndex", FormMethod.Get, new { @class = "nav navbar-nav navbar-form " }))
+                        {
+                            <div class="input-group col-xs-10" style="margin-bottom:20px;">
+                                <div class="input-group-btn ">
+                                    @Html.TextBox(SiteResource.Search, null, new { @class = "form-control", @placeholder = "بحث عن المنتج" })
+
+                                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        }
+                  </li>
+
+                    <li style="margin-top:18px;">@Html.Action("Summary", "Basket")</li>
+
+                </ul>
+
+                @if (SiteResource.Language == "عربي")
+                {
+
+                    <ul class="nav navbar-nav navbar-left" >
+
+                        @Html.Partial("_LoginPartial")
+                        <li style="float:right;"> @Html.ActionLink(SiteResource.Language, "Index", "Language")</li>
+                    </ul>
+                }
+
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                       
+                        @Html.Partial("_LoginPartial")
+                        <li style="float:left;"> @Html.ActionLink(SiteResource.Language, "Index", "Language")</li>
+                    </ul>
+                }
+            </div>
+    
+      
+    </nav>
+    
+    
+
+    <!-- jumbtron -->
+
+   
+    <div>
+        @RenderBody()
+      
+       
+    </div>
+
+
+
+
+
+        <!--footer-->
+   
+       <!--<footer class="navbar navbar-bottom myfooter ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3>
+                           ...
+                        </h3>
+                      <ul>
+                          
+                          <li> @Html.ActionLink("Sub Catogery", "Index", "SubCategories")</li>
+                          <li>@Html.ActionLink("Inventories", "Index", "Inventories")</li>
+                     
+                           <li>@Html.ActionLink("BestSeller","BestSeller","Home","Index")</li>
+                      </ul>
+
+                    </div>
+                    <div class="col-md-4">
+                        <h3>
+                            روابط هامة
+                        </h3>
+                        <ul>
+                            <li>@Html.ActionLink(SiteResource.Category, "Index", "Categories")</li>
+                            <li><a href="#"> اهم الاصناف</a></li>
+                            <li><a href="#">استراد وتصدير</a> </li>
+              
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h3>
+                            تواصل معنا
+                        </h3>
+                        <ul>
+                            <li><a href="#">صفحتنا على الفيس بوك</a></li>
+                            <li><a href="#">تابعنا على تويتر</a></li>
+                            <li><a href="#">شاهدنا على اليوتيوب</a> </li>
+                            <li><a href="#"> اترك لنا رسالة </a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="subfooter">
+                <p>moayadabdo0@gmail.com</p>
+            </div>
+        </footer>-->
+    
+ 
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+            <h3>DX<span> N</span></h3>
+
+            <p class="footer-links">
+                
+                 @Html.ActionLink("Sub Catogery", "Index", "SubCategories")
+                @Html.ActionLink("Inventories", "Index", "Inventories")
+                @Html.ActionLink(SiteResource.Category, "Index", "Categories")
+               @Html.ActionLink("BestSeller", "BestSeller", "Home", "Index")
+                
+            </p>
+
+            <p class="footer-company-name">Nano Final For Sulation© 2019</p>
+        </div>
+
+        <div class="footer-center">
+
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>299 Eng. </span> Muayad, Esmail</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+967770376355</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:suppor@company.com">support@moayadabdo0@gmail.com</a></p>
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p class="footer-company-about">
+                <span>عن شركتنا</span>
+                نعمل بكل جد الى تحويل افكار ونشط عملك الى تصاميم جذابة  ومثيرة للاهتمام ، اننا لانعمل على جمال التصميم وحسب بل نسعى الى تحسين علامتك التجارية عبر الانترنت.
+            </p>
+
+            <div class="footer-icons">
+
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BabyStore.Models.Category>
+@using BabyStore.Views.Shared
+
+@{
+    ViewBag.Title = SiteResource.Index;
+}
+
+<p>
+   @if(Request.IsAuthenticated && User.IsInRole("Admin"))
+   {
+        @Html.ActionLink(SiteResource.Create, "Create",null, new {@class="btn btn-primary" })
+   }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>@Html.DisplayNameFor(model=>model.UserID) </th>
+        <th>@Html.DisplayNameFor(model=>model.UserInsertDate)</th>
+        <th>@Html.DisplayNameFor(model=>model.UserUpdateDate)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+         @Html.ActionLink(item.Name, "Index", "Products", new { category = item.Name },null)
+        </td>
+    @if(Request.IsAuthenticated && User.IsInRole("Admin")) { 
+        <td>@item.UserID</td>
+        <td>@item.UserInsertDate</td>
+        <td>@item.UserUpdateDate</td>
+        <td>
+          
+
+            
+            @Html.ActionLink(SiteResource.Edit, "Edit", new { id=item.ID }, new {@class="btn btn-primary" })
+               @Html.Raw("")
+               @Html.Raw("|")
+               @Html.Raw("")
+            @Html.ActionLink(SiteResource.Deletes, "Delete", new { id=item.ID }, new {@class="btn btn-danger" })
+        </td>
+    }
+    </tr>
+}
+
+</table>

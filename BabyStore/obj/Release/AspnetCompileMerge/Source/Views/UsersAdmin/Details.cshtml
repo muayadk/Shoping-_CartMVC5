@@ -1,0 +1,33 @@
+﻿@model BabyStore.Models.ApplicationUser
+@using BabyStore.Views.Shared
+@{
+    ViewBag.Title = SiteResource.detiles;
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.Partial("_UserDetailsPartial", Model)
+    </dl>
+</div>
+<div class="container">
+    <div class="row">
+        <h4>Roles this user belongs to:</h4>
+    </div>
+    @if (ViewBag.RoleNames.Count == 0)
+    {
+        <hr />
+        <p>No roles found for this user</p>
+    }
+    @foreach (var item in ViewBag.RoleNames)
+    {
+        <div class="row">
+            @item
+           
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink(SiteResource.Edit, "Edit", new { id = Model.Id }, new {@class="btn btn-primary"}) |
+    @Html.ActionLink(SiteResource.BackList, "Index", null, new { @class="btn btn-primary"})
+</p>
